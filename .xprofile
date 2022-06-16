@@ -1,0 +1,8 @@
+setxkbmap de &
+xrandr --output DP-4 --mode 1920x1080 --rate 144.00 &
+##xcompmgr -c &
+picom -f &
+unclutter &
+# nitrogen --set-zoom ~/Downloads/wall.jpg &
+# feh --bg-fill ~/Wallpapers/wp6256812-dark-minimalistic-wallpapers.jpg &
+feh --bg-fill ~/Wallpapers/macWALL.jpg
