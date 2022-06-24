@@ -1,9 +1,16 @@
-! Colors
+########################
+#        colors        #
+########################
+
 *.foreground:  #cccccc
 *.background:  [90]#000000
 
 
-! URxvt
+
+#######################
+#        URxvt        #
+#######################
+
 URxvt.font:			xft:Terminus:style=Regular:size=12:antialias=true
 URxvt.letterSpace:		0
 URxvt.lineSpace:		0
@@ -17,14 +24,18 @@ URxvt.scrollBar_right:		false
 URxvt.urgentOnBell:		true
 URxvt.depth:			32
 URxvt.iso14755:			false
-#URxvt.transparent:		true
+! URxvt.transparent:		true
 urxvt.iso14755_52:		false
 urxvt.shading:			20
 urxvt.termName:			xterm-256color
 urxvt.xftAntialias:		true
 
 
-! Keybinds
+
+######################
+#      Keybinds      #
+######################
+
 URxvt.keysym.Shift-Up:		command:\033]720;1\007
 URxvt.keysym.Shift-Down:	command:\033]721;1\007
 URxvt.keysym.Control-Up:	\033[1;5A
@@ -32,7 +43,12 @@ URxvt.keysym.Control-Down:	\033[1;5B
 URxvt.keysym.Control-Right:	\033[1;5C
 URxvt.keysym.Control-Left:	\033[1;5D
 
-! Extensions
+
+
+######################
+#     Extensions     #
+######################
+
 URxvt.perl-ext-common:		default,clipboard,url-select,keyboard-select,matcher
 URxvt.copyCommand:		xclip -i -selection clipboard
 URxvt.pasteCommand:		xclip -o -selection clipboard
