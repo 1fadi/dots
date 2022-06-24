@@ -73,6 +73,7 @@ keys = [
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
+    Key([mod, "control"], "b", lazy.spawn("firefox --private-window"), desc="Private_Tab"),
 ]
 
 groups = [Group(i) for i in "123456789"]
@@ -122,6 +123,7 @@ widget_defaults = dict(
     font="TerminessTTF Nerd Font",
     fontsize=15,
     padding=3,
+    background="282b30",
 )
 extension_defaults = widget_defaults.copy()
 
@@ -173,8 +175,8 @@ screens = [
                 widget.Sep(linewidth=2, padding=20, foreground="6298e0"),
                 widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
             ],
-            17,
-            border_width=[1, 1, 1, 1],  # Draw top and bottom borders
+            19,
+            border_width=[0, 0, 0, 0],  # Draw top and bottom borders
             border_color=["6298e0", "6298e0", "6298e0", "6298e0"]  # Borders are lightblue
         ),
     ),

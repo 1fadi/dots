@@ -48,9 +48,9 @@ def connection():
     """combines the previous two functions"""
     if ping() is True:
         if interface() == "Ethernet":
-            return "Ethernet: CONNECTED"
+            return "Ethernet"
         elif interface() == "Wifi":
-            return "Wi-fi: CONNECTED"
+            return "Wi-fi"
     else:
         return "NO CONNECTION !"
 
