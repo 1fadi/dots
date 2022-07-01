@@ -28,3 +28,6 @@ alias mv="mv -v"
 alias mkdir="mkdir -pv"
 alias grep="grep --color=auto"
 alias dir="dir --color=auto"
+
+# load pacman
+alias pac="~/pacman-python/pacman-large/./pacman.pyw"
