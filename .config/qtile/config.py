@@ -66,7 +66,7 @@ keys = [
         lazy.layout.toggle_split(),
         desc="Toggle between split and unsplit sides of stack",
     ),
-    Key([mod], "Return", lazy.spawn("urxvt"), desc="Launch terminal"),
+    Key([mod], "Return", lazy.spawn("xterm"), desc="Launch terminal"),
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
@@ -74,6 +74,7 @@ keys = [
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
     Key([mod, "control"], "b", lazy.spawn("firefox --private-window"), desc="Private_Tab"),
+    Key([mod], "p", lazy.spawn("pycharm"), desc="Code editor"),
 ]
 
 groups = [Group(i) for i in "123456789"]
@@ -103,9 +104,11 @@ for i in groups:
     )
 
 layouts = [
-    layout.Matrix(border_focus="#6298e0"),
-    layout.Columns(border_focus='#6298e0', border_width=1),
-    # layout.Max(),
+    layout.Floating(border_width=0, border_focus="#6298e0"),
+    layout.Matrix(border_width=0, margin=5),
+    # layout.Matrix(border_focus="#6298e0", margin=5),
+    # layout.Columns(border_width=0, margin=5),
+    layout.Max(),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
     # layout.Bsp(),
@@ -120,24 +123,29 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font="TerminessTTF Nerd Font",
+    font="JetBrains Mono Regular",
     fontsize=15,
     padding=3,
     background="282b30",
 )
 extension_defaults = widget_defaults.copy()
 
-######## custom widget ########
+"""
 
+
+custom widget 
+
+
+"""
 
 
 class status(widget.base.ThreadPoolText):
 
     defaults = [
-        ("update_interval", 1.0, "Update interval for status bar"),
+        ("update_interval", 0.5, "Update interval for status bar"),
         (
             "format",
-            "{barscript}",
+            "{}",
             "status format",
         ),
     ]
@@ -147,12 +155,8 @@ class status(widget.base.ThreadPoolText):
         self.add_defaults(status.defaults)
 
     def poll(self):
-        variables = dict()
-
-        variables["barscript"] = barscript.main()
-        
-        return self.format.format(**variables)
-
+        bar = barscript.main()
+        return bar
 
 
 screens = [
@@ -169,7 +173,9 @@ screens = [
                     name_transform=lambda name: name.upper(),
                 ),
                 widget.Systray(),
+                widget.TextBox("=>> "),
         	    status(),
+                #widget.TextBox("<|"),
                 widget.Sep(linewidth=2, padding=20, foreground="6298e0"),
                 widget.Volume(fmt="Vol: {}"),
                 widget.Sep(linewidth=2, padding=20, foreground="6298e0"),
