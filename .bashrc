@@ -13,7 +13,9 @@ PS1='[\u@\h \W]\$ '
 
 set -o vi
 HISTTIMEFORMAT="%F %T "
-HISTCONTROL=ignoredups
+HISTCONTROL=ignoreboth
+
+shopt -s checkwinsize
 
 # aliases
 alias vi="vim"
@@ -29,5 +31,5 @@ alias mkdir="mkdir -pv"
 alias grep="grep --color=auto"
 alias dir="dir --color=auto"
 
-# load pacman
+# load pacman :>
 alias pac="~/pacman-python/pacman-large/./pacman.pyw"
