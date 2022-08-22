@@ -5,6 +5,6 @@
 [ -f ~/.xprofile ] && . ~/.xprofile
 [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 
-feh --bg-fill ~/Wallpapers/616159.jpg
+#feh --bg-fill ~/Wallpapers/616159.jpg
 
 qtile start

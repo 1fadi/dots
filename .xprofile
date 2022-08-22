@@ -1,7 +1,9 @@
 setxkbmap de &
-xrandr --output DP-4 --mode 1920x1080 --rate 144.00 &
-##xcompmgr -c &
+xrandr --output eDP-1 --mode 1920x1080 --rate 60.00 &
+xinput set-prop 11 314 1 & # enable tap-to-click
+xinput set-prop 11 322 1 & # enable natural scrolling
+#xcompmgr -c &
 mpd &
-picom -f &
+picom --backend glx -f &
 unclutter &
 feh --bg-fill ~/Wallpapers/616159.jpg &

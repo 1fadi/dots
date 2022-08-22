@@ -1,4 +1,4 @@
-!! general
+!! Term theme
 !
 *foreground:  rgb:cc/cc/cc
 *background:  rgb:00/00/00
@@ -7,10 +7,10 @@
 !
 XTerm.termName: xterm-256color
 XTerm*faceName: JetBrainsMono
-XTerm*faceSize: 16
+XTerm*faceSize: 12
 Xterm.antialias: true
 XTerm.vt100.locale: true
-Xterm.geometry:	92x24
+Xterm.geometry:	80x24
 XTerm*pointerColor: white
 XTerm*pointerColorBackground: black
 XTerm*cursorColor: white
