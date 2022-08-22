@@ -28,8 +28,6 @@ from libqtile import bar, layout, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
-from typing import Any
-import barscript
 
 mod = "mod4"
 terminal = guess_terminal()
@@ -66,15 +64,18 @@ keys = [
         lazy.layout.toggle_split(),
         desc="Toggle between split and unsplit sides of stack",
     ),
-    Key([mod], "Return", lazy.spawn("xterm"), desc="Launch terminal"),
+    Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
     Key([mod], "w", lazy.window.kill(), desc="Kill focused window"),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
-    Key([mod, "control"], "b", lazy.spawn("firefox --private-window"), desc="Private_Tab"),
-    Key([mod], "p", lazy.spawn("pycharm"), desc="Code editor"),
+    Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer sset 'Master' 5%+"), desc="raise volume level"), 
+    Key([], "XF86AudioLowerVolume", lazy.spawn("amixer sset 'Master' 5%-"), desc="lower volume level"),
+    Key([], "XF86AudioMute", lazy.spawn("amixer sset 'Master' toggle"), desc="Mute sound"),
+    Key([], "XF86MonBrightnessUp", lazy.spawn("xbacklight -inc 20"), desc="increase brightness"),
+    Key([], "XF86MonBrightnessDown", lazy.spawn("xbacklight -dec 20"), desc="descrease brightness"),
 ]
 
 groups = [Group(i) for i in "123456789"]
@@ -104,86 +105,53 @@ for i in groups:
     )
 
 layouts = [
-    layout.Floating(border_width=0, border_focus="#6298e0"),
-    layout.Matrix(border_width=0, margin=5),
-    # layout.Matrix(border_focus="#6298e0", margin=5),
-    # layout.Columns(border_width=0, margin=5),
+    layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
     layout.Max(),
-    # Try more layouts by unleashing below layouts.
-    # layout.Stack(num_stacks=2),
-    # layout.Bsp(),
-    # layout.Matrix(border_focus="#b80000"),
-    # layout.MonadTall(),
-    # layout.MonadWide(),
-    # layout.RatioTile(),
-    # layout.Tile(),
-    # layout.TreeTab(),
-    # layout.VerticalTile(),
-    # layout.Zoomy(),
+    #layout.Stack(num_stacks=2),
+    #layout.Bsp(),
+    layout.Matrix(),
+    #layout.MonadTall(),
+    #layout.MonadWide(),
+    #layout.RatioTile(),
+    #layout.Tile(),
+    #layout.TreeTab(),
+    #layout.VerticalTile(),
+    #layout.Zoomy(),
 ]
 
 widget_defaults = dict(
-    font="JetBrains Mono Regular",
+    font="Source Code Variable",
     fontsize=15,
     padding=3,
-    background="282b30",
 )
 extension_defaults = widget_defaults.copy()
 
-"""
-
-
-custom widget 
-
-
-"""
-
-
-class status(widget.base.ThreadPoolText):
-
-    defaults = [
-        ("update_interval", 0.5, "Update interval for status bar"),
-        (
-            "format",
-            "{}",
-            "status format",
-        ),
-    ]
-
-    def __init__(self, **config):
-        super().__init__("", **config)
-        self.add_defaults(status.defaults)
-
-    def poll(self):
-        bar = barscript.main()
-        return bar
-
-
 screens = [
     Screen(
-        top=bar.Bar(
+        bottom=bar.Bar(
             [
-                widget.GroupBox(highlight_method="line", highlight_color=["000000", "282828"], this_current_screen_border="6298e0"),
+                widget.CurrentLayout(),
+                widget.GroupBox(),
                 widget.Prompt(),
-                widget.Spacer(),
+                widget.WindowName(),
                 widget.Chord(
                     chords_colors={
                         "launch": ("#ff0000", "#ffffff"),
                     },
                     name_transform=lambda name: name.upper(),
                 ),
+                widget.TextBox("  {"),
+                widget.TextBox("64469058", foreground="#d75f5f"),
+                widget.TextBox("}  "),
                 widget.Systray(),
-                widget.TextBox("=>> "),
-        	    status(),
-                #widget.TextBox("<|"),
-                widget.Sep(linewidth=2, padding=20, foreground="6298e0"),
-                widget.Volume(fmt="Vol: {}"),
-                widget.Sep(linewidth=2, padding=20, foreground="6298e0"),
                 widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
+                widget.Sep(padding=10, linewidth=2),
+                widget.Battery(),
+                widget.QuickExit(),
             ],
-            19,
-            border_width=[0, 0, 0, 0],  # Draw top and bottom borders
-            border_color=["6298e0", "6298e0", "6298e0", "6298e0"]  # Borders are lightblue
+            24,
+            # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
+            # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
         ),
     ),
 ]

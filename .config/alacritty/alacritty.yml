@@ -1,0 +1,34 @@
+ window:
+   deocrations: full
+   opacity: 1.0
+   startup_mode: Windowed
+   
+ class:
+   gtk_theme_variant: dark
+   
+ scrolling:
+   history: 20000
+
+ font:
+   normal:
+     family: Source Code Variable
+     style: Regular
+
+   bold:
+     family: JetBrainsMono Nerd Font
+     style: Bold
+
+   italic:
+     family: JetBrainsMono Nerd Font
+     style: Italic
+
+   bold_italic:
+     family: JetBrainsMono Nerd Font
+     style: Bold Italic
+
+   size: 9.0
+
+ colors:
+   primary:
+     background: '#1d1f21'
+     foreground: '#c5c8c6'
