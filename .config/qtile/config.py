@@ -71,12 +71,20 @@ keys = [
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
+]
+
+my_keys = [    
     Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer sset 'Master' 5%+"), desc="raise volume level"), 
     Key([], "XF86AudioLowerVolume", lazy.spawn("amixer sset 'Master' 5%-"), desc="lower volume level"),
     Key([], "XF86AudioMute", lazy.spawn("amixer sset 'Master' toggle"), desc="Mute sound"),
     Key([], "XF86MonBrightnessUp", lazy.spawn("xbacklight -inc 20"), desc="increase brightness"),
     Key([], "XF86MonBrightnessDown", lazy.spawn("xbacklight -dec 20"), desc="descrease brightness"),
+    Key([mod], "b", lazy.spawn("qutebrowser"), desc="qutebrowser"), 
+    Key([mod, "control"], "p", lazy.spawn("codium"), desc="open vs-code"),
 ]
+
+for key in my_keys:
+    keys.append(key)
 
 groups = [Group(i) for i in "123456789"]
 
@@ -105,7 +113,7 @@ for i in groups:
     )
 
 layouts = [
-    layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
+    layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=2, margin=4, margin_on_single=10),
     layout.Max(),
     #layout.Stack(num_stacks=2),
     #layout.Bsp(),
@@ -120,7 +128,7 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font="Source Code Variable",
+    font="JetBrainsMono Nerd Font",
     fontsize=15,
     padding=3,
 )
@@ -140,14 +148,13 @@ screens = [
                     },
                     name_transform=lambda name: name.upper(),
                 ),
-                widget.TextBox("  {"),
-                widget.TextBox("64469058", foreground="#d75f5f"),
-                widget.TextBox("}  "),
+                #widget.TextBox("", foreground="#d75f5f", fontsize=20),
                 widget.Systray(),
                 widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
                 widget.Sep(padding=10, linewidth=2),
-                widget.Battery(),
-                widget.QuickExit(),
+                widget.Battery(), 
+                widget.TextBox("  ", foreground="#d75f5f", fontsize=20, 
+                               mouse_callbacks={'Button3': lazy.spawn('shutdown -P +1'), 'Button1': lazy.spawn('shutdown -c')}),
             ],
             24,
             # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
