@@ -3,18 +3,37 @@
 :set softtabstop=4
 :set autoindent
 :set mouse=a
-:set number
+:set number relativenumber
 syntax on
 
 call plug#begin()
 
-Plug 'https://github.com/dracula/vim'
+Plug 'dracula/vim'
 Plug 'scrooloose/nerdtree'
-Plug 'https://github.com/vim-airline/vim-airline'
-Plug 'https://github.com/neoclide/coc.nvim'
+Plug 'vim-airline/vim-airline'
+Plug 'neoclide/coc.nvim'
 
 call plug#end()
 
 " shortcuts
 :nnoremap <C-q> :NERDTreeFocus<cr>
 :nnoremap <C-w> :NERDTree<cr>
+
+" disable arrow-keys
+no <Up> <Nop>
+no <Down> <Nop>
+no <Left> <Nop>
+no <Right> <Nop>
+ino <Up> <Nop>
+ino <Down> <Nop>
+ino <Left> <Nop>
+ino <Right> <Nop>
+
+" char autoclose
+:inoremap ( ()<Esc>i
+:inoremap [ []<Esc>i
+:inoremap { {}<Esc>i
+:inoremap < <><Esc>i
+:inoremap " ""<Esc>i
+:inoremap ' ''<Esc>i
+:inoremap ` ``<Esc>i

@@ -1,21 +1,24 @@
+ env:
+   Term: xterm-256color
+
  window:
-   deocrations: full
    opacity: 1.0
-   startup_mode: Windowed
-   
+
+   dynamic_pading: true
+
  class:
-   gtk_theme_variant: dark
+   #gtk_theme_variant: dark
    
  scrolling:
    history: 20000
 
  font:
    normal:
-     family: Source Code Variable
+     family: JetBrainsMono Nerd Font
      style: Regular
 
    bold:
-     family: JetBrainsMono Nerd Font
+     family: JetBrainsMono Nerd Font Mono
      style: Bold
 
    italic:
@@ -28,7 +31,7 @@
 
    size: 9.0
 
- colors:
-   primary:
-     background: '#1d1f21'
-     foreground: '#c5c8c6'
+
+# colors
+ import:
+   - ~/.config/alacritty/theme/blood_moon.yml
