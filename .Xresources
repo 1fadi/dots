@@ -7,7 +7,7 @@
 !
 XTerm.termName: xterm-256color
 XTerm*faceName: JetBrainsMono
-XTerm*faceSize: 12
+XTerm*faceSize: 15
 Xterm.antialias: true
 XTerm.vt100.locale: true
 Xterm.geometry:	80x24

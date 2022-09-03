@@ -5,8 +5,6 @@
 [ -f ~/.xprofile ] && . ~/.xprofile
 [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 
-if [ -f ~/.fehbg ]; then
-	. ~/.fehbg
-fi
+[ -f ~/.fehbg ] && . ~/.fehbg # restore wallpaper
 
 qtile start

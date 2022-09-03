@@ -6,3 +6,4 @@ mpd &
 picom --backend glx -f &
 unclutter &
 xautolock -time 15 -locker "systemctl suspend" &
+exec /usr/lib/xfce-polkit/xfce-polkit &

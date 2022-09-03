@@ -32,8 +32,10 @@ export PATH="$PATH:/$HOME/.local/bin/"
 # default programs
 export EDITOR="vim"
 export PICVIEW="feh"
-#export TERM="xterm-256color"
+export TERM="xterm-256color"
 export BROWSER="qutebrowser"
+export FILE="less"
+
 
 # prompt
 PS1='\u@\h \W\$ '
