@@ -27,7 +27,7 @@ fi
 
 export PATH="$PATH:/$HOME/.local/bin/scripts/global/"
 export PATH="$PATH:/$HOME/.local/bin/"
-
+export PATH="$PATH:/$HOME/scripts/bin/"
 
 # default programs
 export EDITOR="vim"
