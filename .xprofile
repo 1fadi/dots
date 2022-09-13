@@ -1,9 +1,10 @@
 setxkbmap de &
 xrandr --output eDP-1 --mode 1920x1080 --rate 60.00 &
-xinput set-prop 11 314 1 & # enable tap-to-click
-xinput set-prop 11 322 1 & # enable natural scrolling
+xinpt &
 mpd &
 picom --backend glx -f &
+wallchanger $HOME/Pictures/Wallpapers/lol/ 10 &
 unclutter &
 xautolock -time 15 -locker "systemctl suspend" &
 exec /usr/lib/xfce-polkit/xfce-polkit &
+
