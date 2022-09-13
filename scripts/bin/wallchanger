@@ -1,0 +1,62 @@
+#!/usr/bin/python
+#
+# generate random wallpaper every 1 hour
+# use: python3 wallchanger.py </PATH/TO/DIRECTORY/> <OPTION: MIN>
+
+import os
+import random
+import time
+import sys
+
+
+def list_imgs(path):
+    items = os.listdir(path)
+    valid_imgs = []
+    for i in items:
+        if i.lower().endswith((".jpg", ".png", ".jep")):
+            valid_imgs.append(i)
+    return valid_imgs
+
+
+def get_random(directory):
+    r = random.choice(directory)
+    return r
+
+
+def help_msg():
+    sys.exit("""
+
+--How to use--
+
+python3 wallchanger.py </PATH/TO/DIRECTORY/> <MIN, Default: 60>\n""")
+
+
+def main():
+    if "--help" in sys.argv:
+        help_msg()
+    try:
+        if os.path.exists(sys.argv[1]) and os.path.isdir(sys.argv[1]):
+            sec = 3600
+            try:
+                sec = int(sys.argv[2]) * 60
+            except IndexError:
+                pass
+            except ValueError:
+                print("invalid input.")
+                help_msg()
+            try:   
+                while True:
+                    wallpapers = list_imgs(sys.argv[1])
+                    wallpaper = get_random(wallpapers)
+                    os.system(f"feh --bg-fill {sys.argv[1]}{wallpaper}")
+                    time.sleep(sec)  # DEFAULT: 1 hour
+            except KeyboardInterrupt as err:
+                sys.exit(err)
+        else:
+            sys.exit("not a valid directory. use full path.")
+    except IndexError:
+        help_msg()
+
+
+if __name__ == "__main__":
+    main()
