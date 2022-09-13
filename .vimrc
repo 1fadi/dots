@@ -22,10 +22,10 @@ ino <Left> <Nop>
 ino <Right> <Nop>
 
 " char autoclose
-:inoremap ( ()<Esc>i
-:inoremap [ []<Esc>i
-:inoremap { {}<Esc>i
-:inoremap < <><Esc>i
-:inoremap " ""<Esc>i
-:inoremap ' ''<Esc>i
-:inoremap ` ``<Esc>i
+":inoremap ( ()<Esc>i
+":inoremap [ []<Esc>i
+":inoremap { {}<Esc>i
+":inoremap < <><Esc>i
+":inoremap " ""<Esc>i
+":inoremap ' ''<Esc>i
+":inoremap ` ``<Esc>i
