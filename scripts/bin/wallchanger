@@ -1,7 +1,7 @@
 #!/usr/bin/python
 #
 # generate random wallpaper every 1 hour
-# use: python3 wallchanger.py </PATH/TO/DIRECTORY/> <OPTION: MIN>
+# use: wallchanger </PATH/TO/DIRECTORY/> <OPTION: MIN>
 
 import os
 import random
@@ -28,7 +28,7 @@ def help_msg():
 
 --How to use--
 
-python3 wallchanger.py </PATH/TO/DIRECTORY/> <MIN, Default: 60>\n""")
+wallchanger </PATH/TO/DIRECTORY/> <MIN, Default: 60>\n""")
 
 
 def main():
