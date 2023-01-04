@@ -6,8 +6,13 @@
 [[ $- != *i* ]] && return
 
 
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+# source aliases
+if [ -d ~/.bashrc.d ]; then
+	for rc in ~/.bashrc.d/*.bashrc; do
+		if [ -f "$rc" ]; then
+			. "$rc"
+		fi
+	done
 fi
 
 if ! shopt -oq posix; then
@@ -18,6 +23,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# auto start x server and qtile in tty1 after boot
 if [[ "$(tty)" = "/dev/tty1" ]]; then
 	if which qtile > /dev/null; then
 		pgrep qtile || startx
@@ -45,4 +51,3 @@ HISTTIMEFORMAT="%F %T "
 HISTCONTROL=ignoreboth
 
 shopt -s checkwinsize
-
