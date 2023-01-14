@@ -1,17 +1,18 @@
-:set shiftwidth=4
-:set tabstop=4
-:set softtabstop=4
-:set autoindent
-:set mouse=a
-:set number relativenumber
 syntax on
+set shiftwidth=4
+set tabstop=4
+set softtabstop=4
+set autoindent
+set mouse=
+set number relativenumber
+filetype plugin indent on
 
 call plug#begin()
 
 Plug 'neoclide/coc.nvim' " auto-completion
 Plug 'preservim/nerdtree' " Nerdtree
 Plug 'vim-airline/vim-airline' " vim-airline
-Plug 'jiangmiao/auto-pairs' " auto-close braces
+Plug 'LunarWatcher/auto-pairs' " auto-close braces (this is a maintained fork)
 Plug 'tpope/vim-commentary' " Comment lines
 Plug 'tpope/vim-surround' " surrounding
 Plug 'preservim/tagbar' " tagbar
@@ -29,6 +30,7 @@ nnoremap <C-t> :NERDTreeToggle<CR>
 " save session, write changes and exit
 function SaveSession(path)
 	NERDTreeClose
+	FloatermKill
 	execute "mksession! ~/.config/nvim/sessions/" .. a:path
 	xa
 endfunction
@@ -42,6 +44,8 @@ nnoremap <Leader>rs :!rm ~/.config/nvim/sessions/
 nmap <F12> :TagbarToggle<CR>
 
 let g:floaterm_keymap_toggle = '<Leader>t'
+" let g:floaterm_wintype = 'split'
+" let g:floaterm_height = 0.4
 let NERDTreeShowHidden = 1
 
 " colorscheme
