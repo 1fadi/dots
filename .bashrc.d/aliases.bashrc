@@ -10,4 +10,5 @@ alias mkdir="mkdir -pv"
 alias grep="grep --color=auto"
 alias dir="dir --color=auto"
 
+alias cdc="cd ~/Code/"
 alias pyenv="source env/bin/activate"
