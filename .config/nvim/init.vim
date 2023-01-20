@@ -12,14 +12,13 @@ call plug#begin()
 Plug 'neoclide/coc.nvim' " auto-completion
 Plug 'preservim/nerdtree' " Nerdtree
 Plug 'vim-airline/vim-airline' " vim-airline
-Plug 'LunarWatcher/auto-pairs' " auto-close braces (this is a maintained fork)
 Plug 'tpope/vim-commentary' " Comment lines
 Plug 'tpope/vim-surround' " surrounding
 Plug 'preservim/tagbar' " tagbar
 Plug 'voldikss/vim-floaterm' " terminal
 Plug 'arcticicestudio/nord-vim' " nord colorscheme
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " treesitter
-Plug 'Vimjas/vim-python-pep8-indent'
+Plug 'Vimjas/vim-python-pep8-indent' " python indentation
 
 call plug#end()
 
