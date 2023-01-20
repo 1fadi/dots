@@ -5,7 +5,7 @@ set softtabstop=4
 set autoindent
 set mouse=
 set number relativenumber
-filetype plugin indent on
+" filetype plugin indent on
 
 call plug#begin()
 
@@ -19,6 +19,7 @@ Plug 'preservim/tagbar' " tagbar
 Plug 'voldikss/vim-floaterm' " terminal
 Plug 'arcticicestudio/nord-vim' " nord colorscheme
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " treesitter
+Plug 'Vimjas/vim-python-pep8-indent'
 
 call plug#end()
 
@@ -26,26 +27,35 @@ call plug#end()
 nnoremap <C-f> :NERDTreeFocus<CR>
 nnoremap <C-n> :NERDTree<CR>
 nnoremap <C-t> :NERDTreeToggle<CR>
+nmap <F9> :TagbarToggle<CR>
 
 " save session, write changes and exit
-function SaveSession(path)
+func SaveSession(path)
 	NERDTreeClose
 	FloatermKill
 	execute "mksession! ~/.config/nvim/sessions/" .. a:path
 	xa
-endfunction
+endfunc
 
 command! -nargs=1 Xs call SaveSession(<f-args>)
 
+" save/ load/ remove/ list sessions
 nnoremap <Leader>ss :Xs 
 nnoremap <Leader>os :source ~/.config/nvim/sessions/
 nnoremap <Leader>rs :!rm ~/.config/nvim/sessions/
+nnoremap <Leader>ls :!ls ~/.config/nvim/sessions/ <CR>
 
-nmap <F12> :TagbarToggle<CR>
+" ranger through floaterm
+func OpenRanger()
+	:FloatermNew --height=0.6 --width=0.4 --wintype=float --name=filemanager
+				\ --position=topleft --autoclose=2 ranger --cmd="cd ~"
+endfunc
+command! Ranger call OpenRanger()
 
 let g:floaterm_keymap_toggle = '<Leader>t'
 " let g:floaterm_wintype = 'split'
 " let g:floaterm_height = 0.4
+
 let NERDTreeShowHidden = 1
 
 " colorscheme
@@ -69,5 +79,19 @@ require'nvim-treesitter.configs'.setup {
 EOF
 
 " change color when line reaches max chars (81)
-highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+highlight OverLength ctermbg=red ctermfg=white guibg=#000000
 match OverLength /\%81v.\+/
+
+" python indentation settings
+" autocmd FileType python setlocal indentkeys-=:
+" autocmd FileType python setlocal indentkeys-=<:>
+
+" baaammm
+no <Up> <Nop>
+no <Down> <Nop>
+no <Left> <Nop>
+no <Right> <Nop>
+ino <Up> <Nop>
+ino <Down> <Nop>
+ino <Left> <Nop>
+ino <Right> <Nop>
