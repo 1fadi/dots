@@ -52,9 +52,6 @@ endfunc
 command! Ranger call OpenRanger()
 
 let g:floaterm_keymap_toggle = '<Leader>t'
-" let g:floaterm_wintype = 'split'
-" let g:floaterm_height = 0.4
-
 let NERDTreeShowHidden = 1
 
 " colorscheme
@@ -80,10 +77,6 @@ EOF
 " change color when line reaches max chars (81)
 highlight OverLength ctermbg=red ctermfg=white guibg=#000000
 match OverLength /\%81v.\+/
-
-" python indentation settings
-" autocmd FileType python setlocal indentkeys-=:
-" autocmd FileType python setlocal indentkeys-=<:>
 
 " baaammm
 no <Up> <Nop>
