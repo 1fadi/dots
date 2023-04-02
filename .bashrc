@@ -19,14 +19,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# auto start x server and qtile in tty1 after boot
-if [[ "$(tty)" = "/dev/tty1" ]]; then
-	if which qtile > /dev/null; then
-		pgrep qtile || startx
-	fi
-fi
-
-
 export PATH="$PATH:/$HOME/.local/bin/scripts/global/"
 export PATH="$PATH:/$HOME/.local/bin/"
 export PATH="$PATH:/$HOME/scripts/bin/"
