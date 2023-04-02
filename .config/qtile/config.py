@@ -28,6 +28,7 @@ from libqtile import bar, layout, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
+from libqtile.extension import CommandSet
 
 mod = "mod4"
 terminal = guess_terminal()
@@ -73,14 +74,22 @@ keys = [
     Key([mod], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
 ]
 
+commands = CommandSet(
+    commands={
+        "lock": "/usr/bin/i3lock -c 000000",
+        "suspend": "systemctl suspend",
+    },
+    dmenu_prompt="Select a command: "
+)
+
 my_keys = [    
     Key([], "XF86AudioRaiseVolume", lazy.spawn("amixer sset 'Master' 5%+"), desc="raise volume level"), 
     Key([], "XF86AudioLowerVolume", lazy.spawn("amixer sset 'Master' 5%-"), desc="lower volume level"),
     Key([], "XF86AudioMute", lazy.spawn("pactl set-sink-mute 0 toggle"), desc="Mute sound"),
-    Key([], "XF86MonBrightnessUp", lazy.spawn("xbacklight -inc 20"), desc="increase brightness"),
-    Key([], "XF86MonBrightnessDown", lazy.spawn("xbacklight -dec 20"), desc="descrease brightness"),
+    Key([], "XF86MonBrightnessUp", lazy.spawn("brightnessctl s 5%+ -n 1"), desc="increase brightness"),
+    Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl s 5%- -n 1"), desc="descrease brightness"),
     Key([mod], "b", lazy.spawn("qutebrowser"), desc="qutebrowser"), 
-    Key([mod, "control"], "p", lazy.spawn("codium"), desc="open vs-code"),
+    Key([mod], "p", lazy.run_extension(commands)),
 ]
 
 for key in my_keys:
@@ -113,7 +122,7 @@ for i in groups:
     )
 
 layouts = [
-    layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=2, margin=4, margin_on_single=0),
+    layout.Columns(border_focus="#809fff", border_normal="#00134d", border_width=2, margin=4, margin_on_single=0),
     layout.Max(),
     #layout.Stack(num_stacks=2),
     #layout.Bsp(),
@@ -128,7 +137,7 @@ layouts = [
 ]
 
 widget_defaults = dict(
-    font="JetBrainsMono Nerd Font",
+    font="FiraCode Nerd Font Mono",
     fontsize=15,
     padding=3,
 )
@@ -136,7 +145,7 @@ extension_defaults = widget_defaults.copy()
 
 screens = [
     Screen(
-        bottom=bar.Bar(
+        top=bar.Bar(
             [
                 widget.CurrentLayout(),
                 widget.GroupBox(),
@@ -148,14 +157,13 @@ screens = [
                     },
                     name_transform=lambda name: name.upper(),
                 ),
-                #widget.TextBox("", foreground="#d75f5f", fontsize=20),
                 widget.Systray(),
                 widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
                 widget.Sep(padding=10, linewidth=2),
                 widget.Battery(charge_char='', full_char='', 
                                empty_char='',discharge_char='', unknown_char='', 
                                update_interval=30, format='{char} {percent:2.0%} '), 
-                widget.TextBox("  ", foreground="#d75f5f", fontsize=20, 
+                widget.TextBox("", foreground="#809fff", fontsize=35, 
                                mouse_callbacks={'Button3': lazy.spawn('shutdown -P +1'), 'Button1': lazy.spawn('shutdown -c')}),
             ],
             24,
