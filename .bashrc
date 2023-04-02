@@ -7,12 +7,8 @@
 
 
 # source aliases
-if [ -d ~/.bashrc.d ]; then
-	for rc in ~/.bashrc.d/*.bashrc; do
-		if [ -f "$rc" ]; then
-			. "$rc"
-		fi
-	done
+if [ -f ~/.aliases ]; then
+		source ~/.aliases
 fi
 
 if ! shopt -oq posix; then
