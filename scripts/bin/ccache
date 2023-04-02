@@ -1,0 +1,13 @@
+#!/bin/sh
+#
+msg () { echo 'clear memory cache'; }
+exec_command () { msg; echo 1 > /proc/sys/vm/drop_caches; free -m; }
+
+if [ "$(whoami)" == "root" ]; then
+	exec_command
+else
+	msg
+	echo "*Checking for root access.."
+	sudo sh -c "echo 1 > /proc/sys/vm/drop_caches"
+	exit 
+fi
