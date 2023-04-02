@@ -1,10 +1,9 @@
-setxkbmap de &
-xrandr --output eDP-1 --mode 1920x1080 --rate 60.00 &
+#setxkbmap de &
+#xrandr --output eDP-1 --mode 1920x1080 --rate 60.00 &
 xinpt &
 mpd &
-picom --backend glx -f &
+picom -f &
 wallchanger $HOME/Pictures/Wallpapers/lol/ 10 &
 unclutter &
-xautolock -time 15 -locker "systemctl suspend" &
-exec /usr/lib/xfce-polkit/xfce-polkit &
-
+dunst &
+#exec /usr/lib/xfce-polkit/xfce-polkit &
