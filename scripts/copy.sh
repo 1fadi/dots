@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # A script that synchronizes a source directory with 
 # a destination directory by copying all files and subdirectories, 
