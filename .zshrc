@@ -7,7 +7,7 @@ ZSH_THEME="clean"
 zstyle ':omz:update' mode reminder  # just remind me to update when it's time
 zstyle ':omz:update' frequency 14
 
-ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="false"
 
 plugins=(
 	git
