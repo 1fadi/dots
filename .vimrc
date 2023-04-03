@@ -6,11 +6,6 @@
 :set number relativenumber
 syntax on
 
-
-" shortcuts
-:nnoremap <C-q> :NERDTreeFocus<cr>
-:nnoremap <C-w> :NERDTree<cr>
-
 " disable arrow-keys
 no <Up> <Nop>
 no <Down> <Nop>
