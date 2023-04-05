@@ -1,34 +1,10 @@
-# Copyright (c) 2010 Aldo Cortesi
-# Copyright (c) 2010, 2014 dequis
-# Copyright (c) 2012 Randall Ma
-# Copyright (c) 2012-2014 Tycho Andersen
-# Copyright (c) 2012 Craig Barnes
-# Copyright (c) 2013 horsik
-# Copyright (c) 2013 Tao Sauvage
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
-
 from libqtile import bar, layout, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 from libqtile.extension import CommandSet
+
+from widgets.clickable_clock import ClickableClock
 
 mod = "mod4"
 terminal = guess_terminal()
@@ -90,6 +66,7 @@ my_keys = [
     Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl s 5%- -n 1"), desc="descrease brightness"),
     Key([mod], "b", lazy.spawn("qutebrowser"), desc="qutebrowser"), 
     Key([mod], "p", lazy.run_extension(commands)),
+    Key([], "F9", lazy.widget["clock2"].toggle_date, desc="test"),
 ]
 
 for key in my_keys:
@@ -148,9 +125,14 @@ screens = [
         top=bar.Bar(
             [
                 widget.CurrentLayout(),
-                widget.GroupBox(),
+                widget.GroupBox(
+                    highlight_method="block",
+                    this_current_screen_border="#809fff",
+                    fontsize=17,
+                    hide_unused=False,
+                ),
                 widget.Prompt(),
-                widget.WindowName(),
+                widget.WindowName(format="{state}{name}"),
                 widget.Chord(
                     chords_colors={
                         "launch": ("#ff0000", "#ffffff"),
@@ -158,17 +140,89 @@ screens = [
                     name_transform=lambda name: name.upper(),
                 ),
                 widget.Systray(),
-                widget.Clock(format="%Y-%m-%d %a %I:%M %p"),
-                widget.Sep(padding=10, linewidth=2),
-                widget.Battery(charge_char='', full_char='', 
-                               empty_char='',discharge_char='', unknown_char='', 
-                               update_interval=30, format='{char} {percent:2.0%} '), 
-                widget.TextBox("", foreground="#809fff", fontsize=35, 
-                               mouse_callbacks={'Button3': lazy.spawn('shutdown -P +1'), 'Button1': lazy.spawn('shutdown -c')}),
+                widget.Sep(
+                    padding=10,
+                    linewidth=2,
+                    background="000000"
+                ),
+                widget.Net(
+                    format=" {down} ↓↑ {up}",
+                    interface="wlan0",
+                    update_interval=1,
+                    background="292f36", fmt=" {} "
+                ),
+                widget.Sep(
+                    padding=10,
+                    linewidth=2,
+                    background="000000"
+                ),
+                widget.Memory(
+                    format=" {MemUsed:.1f}{mm}/ {MemTotal:.1f}{mm}",
+                    mouse_callbacks={"Button1": lazy.spawn("alacritty -e htop")},
+                    measure_mem="M",
+                    update_interval=2,
+                    background="273f1e", fmt=" {} "
+                ),
+
+                widget.Sep(
+                    padding=10,
+                    linewidth=2,
+                    background="#000000"
+                ),
+                *(
+                    widget.TextBox(
+                        " ",
+                        background="292f36",
+                        fontsize=20
+                    ),
+                    widget.Volume(
+                        fmt=" {} ",
+                        background="292f36",
+                 ),
+
+                ),
+                widget.Sep(
+                    padding=10,
+                    linewidth=2,
+                    background="000000"
+                ),
+                widget.Battery(
+                    charge_char='',
+                    full_char='', 
+                    empty_char='',
+                    discharge_char='',
+                    unknown_char='', 
+                    update_interval=30,
+                    format='{char} {percent:2.0%}',
+                    background="273f1e",
+                    fmt=" {} "
+                ),
+                widget.Sep(
+                    padding=10, 
+                    linewidth=2,
+                    background="000000"
+                ),
+                ClickableClock(
+                    name="clock2",
+                    time_format="%I:%M %p",
+                    date_format="%a, %B %d, %Y",
+                    fmt=" {} ",
+                    background="292f36"
+                ),
+                widget.TextBox(
+                    "",
+                    foreground="#809fff",
+                    fontsize=35,
+                    background="292f36", 
+                    mouse_callbacks={
+                        'Button3': lazy.spawn('shutdown -P +1'),
+                        'Button1': lazy.spawn('shutdown -c')
+                    }),
             ],
             24,
-            # border_width=[2, 0, 2, 0],  # Draw top and bottom borders
-            # border_color=["ff00ff", "000000", "ff00ff", "000000"]  # Borders are magenta
+            background="4d4d4d",
+            border_width=[0, 1, 1, 1],
+            border_color=["000000", "000000", "000000", "000000"]
         ),
     ),
 ]
