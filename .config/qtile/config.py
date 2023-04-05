@@ -115,10 +115,18 @@ layouts = [
 
 widget_defaults = dict(
     font="FiraCode Nerd Font Mono",
-    fontsize=15,
+    fontsize=16,
     padding=3,
 )
 extension_defaults = widget_defaults.copy()
+
+
+def shorten_window_name(name):
+    if name.endswith("Mozilla Firefox"):
+        return name[-len("Mozilla Firefox"):]
+    else:
+        return name
+
 
 screens = [
     Screen(
@@ -132,13 +140,24 @@ screens = [
                     hide_unused=False,
                 ),
                 widget.Prompt(),
-                widget.WindowName(format="{state}{name}"),
+                widget.WindowName(
+                    format="{state}{name}",
+                    parse_text=shorten_window_name,
+                ),
                 widget.Chord(
                     chords_colors={
                         "launch": ("#ff0000", "#ffffff"),
                     },
                     name_transform=lambda name: name.upper(),
                 ),
+                ClickableClock(
+                    name="clock2",
+                    time_format="%I:%M %p",
+                    date_format="%a, %B %d, %Y",
+                    fmt=" {} ",
+                    # background="292f36"
+                ),
+                widget.Spacer(length=bar.STRETCH),
                 widget.Systray(),
                 widget.Sep(
                     padding=10,
@@ -202,13 +221,6 @@ screens = [
                     linewidth=2,
                     background="000000"
                 ),
-                ClickableClock(
-                    name="clock2",
-                    time_format="%I:%M %p",
-                    date_format="%a, %B %d, %Y",
-                    fmt=" {} ",
-                    background="292f36"
-                ),
                 widget.TextBox(
                     "",
                     foreground="#809fff",
@@ -219,10 +231,10 @@ screens = [
                         'Button1': lazy.spawn('shutdown -c')
                     }),
             ],
-            24,
+            27,
             background="4d4d4d",
             border_width=[0, 1, 1, 1],
-            border_color=["000000", "000000", "000000", "000000"]
+            border_color=["000000", "000000", "000000", "000000"],
         ),
     ),
 ]
