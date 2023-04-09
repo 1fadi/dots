@@ -133,7 +133,7 @@ screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.CurrentLayout(),
+                # widget.CurrentLayout(),
                 widget.GroupBox(
                     highlight_method="block",
                     this_current_screen_border="#809fff",
@@ -236,19 +236,19 @@ screens = [
                     unknown_char='', 
                     update_interval=30,
                     format='{char} {percent:2.0%}',
-                    background="273f1e",
+                    # background="273f1e",
                     fmt=" {} "
                 ),
                 widget.Sep(
                     padding=1, 
                     linewidth=2,
-                    background="000000"
+                    # background="000000"
                 ),
                 widget.TextBox(
                     "",
                     foreground="#809fff",
                     fontsize=35,
-                    background="292f36", 
+                    # background="292f36", 
                     padding=10,
                     mouse_callbacks={
                         'Button3': lazy.spawn('shutdown -P +1'),
