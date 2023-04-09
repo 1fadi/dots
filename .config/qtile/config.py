@@ -5,6 +5,7 @@ from libqtile.utils import guess_terminal
 from libqtile.extension import CommandSet
 
 from widgets.clickable_clock import ClickableClock
+from widgets.utils import cpu as cpu_func
 
 mod = "mod4"
 terminal = guess_terminal()
@@ -66,7 +67,7 @@ my_keys = [
     Key([], "XF86MonBrightnessDown", lazy.spawn("brightnessctl s 5%- -n 1"), desc="descrease brightness"),
     Key([mod], "b", lazy.spawn("qutebrowser"), desc="qutebrowser"), 
     Key([mod], "p", lazy.run_extension(commands)),
-    Key([], "F9", lazy.widget["clock2"].toggle_date, desc="test"),
+    # Key([], "F9", lazy.widget["clock"].toggle_date, desc="test"),
 ]
 
 for key in my_keys:
@@ -159,52 +160,74 @@ screens = [
                 ),
                 widget.Spacer(length=bar.STRETCH),
                 widget.Systray(),
-                widget.Sep(
-                    padding=10,
-                    linewidth=2,
-                    background="000000"
-                ),
-                widget.Net(
-                    format=" {down} ↓↑ {up}",
-                    interface="wlan0",
-                    update_interval=1,
-                    background="292f36", fmt=" {} "
-                ),
-                widget.Sep(
-                    padding=10,
-                    linewidth=2,
-                    background="000000"
-                ),
-                widget.Memory(
-                    format=" {MemUsed:.1f}{mm}/ {MemTotal:.1f}{mm}",
-                    mouse_callbacks={"Button1": lazy.spawn("alacritty -e htop")},
-                    measure_mem="M",
-                    update_interval=2,
-                    background="273f1e", fmt=" {} "
-                ),
-
-                widget.Sep(
-                    padding=10,
-                    linewidth=2,
-                    background="#000000"
-                ),
-                *(
-                    widget.TextBox(
-                        " ",
-                        background="292f36",
-                        fontsize=20
+                widget.WidgetBox(widgets=[
+                    widget.Sep(
+                        padding=1,
+                        linewidth=1,
+                        background="000000",
                     ),
-                    widget.Volume(
-                        fmt=" {} ",
-                        background="292f36",
-                 ),
+                    widget.Net(
+                        format=" {down} ↓↑ {up}",
+                        interface="wlan0",
+                        update_interval=1,
+                        background="273f1e", fmt=" {} "
+                    ),
+                    widget.Sep(
+                        padding=1,
+                        linewidth=2,
+                        background="000000"
+                    ),
+                    *(
+                        widget.TextBox(
+                            "󰻠",
+                            background="292f36",
+                            fontsize=29,
+                            padding=7
+                        ),
+                        widget.GenPollText(
+                            func=cpu_func,
+                            fmt="{} ",
+                            update_interval=2,
+                            background="292f36",
+                        )
+                    ),
+                    widget.Sep(
+                        padding=1,
+                        linewidth=2,
+                        background="000000"
+                    ),
+                    widget.Memory(
+                        format=" {MemUsed:.1f}{mm}/ {MemTotal:.1f}{mm}",
+                        mouse_callbacks={"Button1": lazy.spawn("kitty htop")},
+                        measure_mem="G",
+                        update_interval=2,
+                        background="273f1e", fmt=" {} "
+                    ),
 
-                ),
-                widget.Sep(
-                    padding=10,
-                    linewidth=2,
-                    background="000000"
-                ),
+                    widget.Sep(
+                        padding=1,
+                        linewidth=2,
+                        background="#000000"
+                    ),
+                    *(
+                        widget.TextBox(
+                            "",
+                            background="292f36",
+                            fontsize=28,
+                            padding=8
+                        ),
+                        widget.Volume(
+                            fmt="{} ",
+                            background="292f36",
+                     ),
+
+                    ),
+                    widget.Sep(
+                        padding=1,
+                        linewidth=2,
+                        background="000000"
+                    ),
+                ], text_closed="", text_open=""),
                 widget.Battery(
                     charge_char='',
                     full_char='', 
@@ -217,7 +240,7 @@ screens = [
                     fmt=" {} "
                 ),
                 widget.Sep(
-                    padding=10, 
+                    padding=1, 
                     linewidth=2,
                     background="000000"
                 ),
@@ -226,12 +249,13 @@ screens = [
                     foreground="#809fff",
                     fontsize=35,
                     background="292f36", 
+                    padding=10,
                     mouse_callbacks={
                         'Button3': lazy.spawn('shutdown -P +1'),
                         'Button1': lazy.spawn('shutdown -c')
                     }),
             ],
-            27,
+            24,
             background="4d4d4d",
             border_width=[0, 1, 1, 1],
             border_color=["000000", "000000", "000000", "000000"],
