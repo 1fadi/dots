@@ -1,7 +1,7 @@
 from libqtile import bar, widget
 from libqtile.lazy import lazy
 
-from .qwidgets import ClickableClock
+from .qwidgets import ClickableClock, VPN
 from .helpers import shorten_window_name
 
 from utils import cpu as cpu_func
@@ -44,16 +44,16 @@ bar_1 = bar.Bar([
     widget.Spacer(length=bar.STRETCH),
     widget.Systray(),
     widget.WidgetBox(widgets=[
+        VPN(
+            on="VPN",
+            update_interval=2,
+            background="273f1e",
+            fmt=" {} "
+        ),
         widget.Sep(
             padding=1,
             linewidth=1,
             background="000000",
-        ),
-        widget.Net(
-            format=" {down} ↓↑ {up}",
-            interface="wlan0",
-            update_interval=1,
-            background="273f1e", fmt=" {} "
         ),
         widget.Sep(
             padding=1,
