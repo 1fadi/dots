@@ -7,6 +7,16 @@ from .helpers import shorten_window_name
 from utils import cpu as cpu_func
 
 bar_1 = bar.Bar([
+    widget.TextBox(
+        "",
+        foreground="#809fff",
+        fontsize=35,
+        # background="292f36",
+        padding=5,
+        mouse_callbacks={
+            'Button3': lazy.spawn('shutdown -P +1'),
+            'Button1': lazy.spawn('shutdown -c')
+        }),
     widget.GroupBox(
         highlight_method="block",
         this_current_screen_border="#809fff",
@@ -111,21 +121,6 @@ bar_1 = bar.Bar([
         # background="273f1e",
         fmt=" {} "
     ),
-    widget.Sep(
-        padding=1,
-        linewidth=2,
-        # background="000000"
-    ),
-    widget.TextBox(
-        "",
-        foreground="#809fff",
-        fontsize=35,
-        # background="292f36",
-        padding=10,
-        mouse_callbacks={
-            'Button3': lazy.spawn('shutdown -P +1'),
-            'Button1': lazy.spawn('shutdown -c')
-        }),
 ],
     24,
     background="4d4d4d",
