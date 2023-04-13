@@ -1,4 +1,4 @@
-export PATH=$HOME/bin:/usr/local/bin:$HOME/scripts/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:$HOME/scripts/bin:$HOME/.local/bin:$PATH
 export ZSH="$HOME/.oh-my-zsh"
 
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
