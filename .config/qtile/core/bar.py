@@ -1,7 +1,7 @@
 from libqtile import bar, widget
 from libqtile.lazy import lazy
 
-from .qwidgets import ClickableClock, VPN
+from .qwidgets import ClickableClock, VPN, Battery
 from .helpers import shorten_window_name
 
 from utils import cpu as cpu_func
@@ -92,35 +92,29 @@ bar_1 = bar.Bar([
             linewidth=2,
             background="#000000"
         ),
-        *(
-            widget.TextBox(
-                "",
-                background="292f36",
-                fontsize=28,
-                padding=8
-            ),
-            widget.Volume(
-                fmt="{} ",
-                background="292f36",
-            ),
+    ], text_closed=" ", text_open=""),
+    *(
+        widget.TextBox(
+            "",
+            fontsize=28,
+            padding=8
         ),
-        widget.Sep(
-            padding=1,
-            linewidth=2,
-            background="000000"
+        widget.Volume(
+            fmt="{}",
         ),
-    ], text_closed="", text_open=""),
-    widget.Battery(
-        charge_char='',
-        full_char='',
-        empty_char='',
-        discharge_char='',
-        unknown_char='',
-        update_interval=30,
-        format='{char} {percent:2.0%}',
-        # background="273f1e",
-        fmt=" {} "
     ),
+    Battery(fmt="{} hello"),
+    # widget.Battery(
+    #     charge_char='',
+    #     full_char='',
+    #     empty_char='',
+    #     discharge_char='',
+    #     unknown_char='',
+    #     update_interval=30,
+    #     format='{char} {percent:2.0%}',
+    #     background="273f1e",
+    #     fmt=" {} "
+    # ),
 ],
     24,
     background="4d4d4d",
