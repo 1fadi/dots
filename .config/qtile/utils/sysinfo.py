@@ -75,13 +75,10 @@ def bat():
     battery = psutil.sensors_battery()
     try:
         plugged = battery.power_plugged
-    except AttributeError as err:
+    except AttributeError:
         return "No battery found!"
-    percent = str(battery.percent).rpartition(".")[0]
-    if plugged:
-        return f"Bat: {percent}%"
-    else:
-        return f"Bat: {percent}%"
+    percent = int(battery.percent)
+    return (percent, plugged)
 
     
 # VOLUME
