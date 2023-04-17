@@ -103,7 +103,7 @@ bar_1 = bar.Bar([
             fmt="{}",
         ),
     ),
-    Battery(fmt="{} hello"),
+    Battery(notify=True, update_interval=10),
     # widget.Battery(
     #     charge_char='',
     #     full_char='',
