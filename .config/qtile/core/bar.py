@@ -1,7 +1,7 @@
 from libqtile import bar, widget
 from libqtile.lazy import lazy
 
-from .qwidgets import ClickableClock, VPN, Battery
+from .qwidgets import ClickableClock, VPN, Battery, Volume
 from .helpers import shorten_window_name
 
 from utils import cpu as cpu_func
@@ -47,23 +47,15 @@ bar_1 = bar.Bar([
         VPN(
             on="VPN",
             update_interval=2,
-            background="273f1e",
             fmt=" {} "
         ),
-        widget.Sep(
-            padding=1,
-            linewidth=1,
-            background="000000",
-        ),
-        widget.Sep(
-            padding=1,
-            linewidth=2,
-            background="000000"
-        ),
+        # widget.Sep(
+        #     padding=1,
+        #     linewidth=1,
+        # ),
         *(
             widget.TextBox(
                 "󰻠",
-                background="292f36",
                 fontsize=29,
                 padding=7
             ),
@@ -71,38 +63,31 @@ bar_1 = bar.Bar([
                 func=cpu_func,
                 fmt="{} ",
                 update_interval=2,
-                background="292f36",
             )
         ),
         widget.Sep(
             padding=1,
             linewidth=2,
-            background="000000"
         ),
         widget.Memory(
             format=" {MemUsed:.1f}{mm}/ {MemTotal:.1f}{mm}",
             mouse_callbacks={"Button1": lazy.spawn("kitty htop")},
             measure_mem="G",
             update_interval=2,
-            background="273f1e", fmt=" {} "
+            fmt=" {} "
         ),
 
         widget.Sep(
-            padding=1,
+            padding=5,
             linewidth=2,
-            background="#000000"
         ),
-    ], text_closed=" ", text_open=""),
-    *(
-        widget.TextBox(
-            "",
-            fontsize=28,
-            padding=8
-        ),
-        widget.Volume(
-            fmt="{}",
-        ),
-    ),
+    ], text_closed=" ", text_open=" ", fontsize=26),
+    # Volume(
+    #     emoji=True,
+    #     fontsize=35,
+    #     padding=2,
+    #     foreground="872357"
+    # ),
     Battery(notify=True, update_interval=10),
     # widget.Battery(
     #     charge_char='',
