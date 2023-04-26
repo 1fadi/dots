@@ -13,3 +13,11 @@ alias dir="dir --color=auto"
 alias cdc="cd ~/Code/"
 alias pyenv="python -m venv env"
 alias spyenv="source env/bin/activate"
+
+alias speed="curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python -"
+alias qonfig="nvim -c 'cd ~/.config/qtile/'"
+
+alias pubkey="less ~/.ssh/id_ed25519.pub | xclip -selection clipboard"
+alias prikey="less ~/.ssh/id_ed25519 | xclip -selection clipboard"
+
+alias sniff="sudo ngrep -d any -t '^(GET|POST)' 'tcp and port 80'"
