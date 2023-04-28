@@ -1,9 +1,11 @@
 from libqtile import layout
 from libqtile.config import Match
 
+from .colors import hex_colors
+
 layouts = [
     layout.Columns(
-        border_focus="#809fff",
+        border_focus=hex_colors["light-sea-blue-2"],
         border_normal="#00134d",
         border_width=2,
         margin=4,
@@ -12,7 +14,9 @@ layouts = [
     layout.Max(),
     # layout.Stack(num_stacks=2),
     # layout.Bsp(),
-    layout.Matrix(),
+    layout.Matrix(
+        border_focus=hex_colors["light-sea-blue-2"],
+    ),
     # layout.MonadTall(),
     # layout.MonadWide(),
     # layout.RatioTile(),
