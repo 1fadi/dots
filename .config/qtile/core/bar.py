@@ -3,26 +3,16 @@ from libqtile.lazy import lazy
 
 from .qwidgets import *
 from .helpers import shorten_window_name
+from .colors import hex_colors
 
 from utils import cpu as cpu_func
 
 bar_1 = bar.Bar([
-    # widget.TextBox(
-    #     "",
-    #     foreground="#809fff",
-    #     fontsize=35,
-    #     # background="292f36",
-    #     padding=5,
-    #     mouse_callbacks={
-    #         'Button3': lazy.spawn('shutdown -P +1'),
-    #         'Button1': lazy.spawn('shutdown -c')
-    #     }),
     widget.GroupBox(
         highlight_method="block",
-        this_current_screen_border="#809fff",
+        this_current_screen_border=hex_colors["light-sea-blue-2"],
         fontsize=17,
         hide_unused=False,
-        fmt="{}",
         padding=8
     ),
     widget.Prompt(),
@@ -46,20 +36,16 @@ bar_1 = bar.Bar([
     widget.Spacer(length=bar.STRETCH),
     widget.Systray(),
     widget.WidgetBox(widgets=[
-        # widget.Sep(
-        #     padding=1,
-        #     linewidth=1,
-        # ),
         *(
             widget.TextBox(
                 "󰻠",
                 fontsize=29,
-                padding=7
+                padding=4
             ),
             widget.GenPollText(
                 func=cpu_func,
-                fmt="{} ",
                 update_interval=2,
+                padding=8
             )
         ),
         widget.Sep(
@@ -71,12 +57,12 @@ bar_1 = bar.Bar([
             mouse_callbacks={"Button1": lazy.spawn("kitty htop")},
             measure_mem="G",
             update_interval=2,
-            fmt=" {} "
+            padding=8
         ),
     ],
-        text_closed="",
-        text_open="",
-        fontsize=25,
+        text_closed="{} ",
+        text_open="} ",
+        fontsize=14,
         close_button_location="right"
     ),
     VPN(
@@ -85,16 +71,17 @@ bar_1 = bar.Bar([
         padding=6,
         fontsize=12
     ),
-    Volume(foreground="d5d5d5", size=18),
     Network(size=13, interfaces=["wlan0", "enp0s31f6"]),
+    Volume(foreground="d5d5d5", size=18),
     Battery(
         notify=True,
         update_interval=10,
-        size=(16, 32)
+        size=(16, 32),
+        charging_fg=hex_colors["light-sea-blue-2"]
     ),
 ],
     25,
     background="1a1a1a",
-    border_width=[0, 1, 1, 1],
-    border_color=["000000", "000000", "000000", "000000"],
+    border_width=[1, -5, 1, -5],
+    border_color=hex_colors["light-sea-blue-2"],
 )
