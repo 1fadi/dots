@@ -1,7 +1,7 @@
 from libqtile.config import Screen
 
-from .bar import bar_1
+from .bar import bar_1, bar_2
 
 screens = [
-    Screen(top=bar_1,),
+    Screen(top=bar_2,),
 ]
