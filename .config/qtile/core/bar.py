@@ -127,7 +127,7 @@ bar_2 = bar.Bar([
         widget.Memory(
             format="{MemUsed:.1f}{mm}/ {MemTotal:.1f}{mm}",
             mouse_callbacks={"Button1": lazy.spawn("kitty htop")},
-            measure_mem="G",
+            measure_mem="M",
             update_interval=2,
             fmt="MEM {}",
             background=hex_colors["grey-1"],
