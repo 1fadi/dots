@@ -1,10 +1,8 @@
-from libqtile.config import Group
-
 from .layouts import layouts, floating_layout
 from .qwidgets import widget_defaults
 from .screens import screens
+from .groups import groups
 
-groups = [Group(i) for i in "123456789"]
 
 from .keys import keys, mouse, mod
 
