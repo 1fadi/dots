@@ -2,7 +2,7 @@ from libqtile.lazy import lazy
 from libqtile.config import Click, Drag, Key
 from libqtile.utils import guess_terminal
 
-from . import groups
+from .groups import groups
 from .helpers import commands
 
 mod = "mod4"
