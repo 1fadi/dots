@@ -83,7 +83,7 @@ bar_1 = bar.Bar([
 )
 
 bar_2 = bar.Bar([
-    Border("left", "triangle", foreground=hex_colors["grey-1"]),
+    # Border("left", "triangle", foreground=hex_colors["grey-1"]),
     widget.GroupBox(
         highlight_method="block",
         this_current_screen_border=hex_colors["light-sea-blue-2"],
@@ -126,7 +126,7 @@ bar_2 = bar.Bar([
         ),
         widget.Memory(
             format="{MemUsed:.1f}{mm}/ {MemTotal:.1f}{mm}",
-            mouse_callbacks={"Button1": lazy.spawn("kitty htop")},
+            mouse_callbacks={"Button1": lazy.spawn("xterm -e htop")},
             measure_mem="M",
             update_interval=2,
             fmt="MEM {}",
@@ -154,15 +154,15 @@ bar_2 = bar.Bar([
         update_interval=10,
         size=(16, 32),
         charging_fg=hex_colors["light-sea-blue-2"],
-        padding=2,
+        padding=4,
         background=hex_colors["grey-1"],
         font_color=hex_colors["grey-1"]
     ),
-    Border(side="right", shape="triangle", foreground=hex_colors["grey-1"]),
+    # Border(side="right", shape="triangle", foreground=hex_colors["grey-1"]),
 ],
     25,
     background="00000000",
-    margin=[2, 0, 2, 0],
+    margin=[0, -5, 0, -5],
 )
 
 @hook.subscribe.startup
