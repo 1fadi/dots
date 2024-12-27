@@ -3,40 +3,64 @@ set shiftwidth=4
 set tabstop=4
 set softtabstop=4
 set autoindent
-set mouse=
+" set mouse=
 set number relativenumber
 " filetype plugin indent on
+let  mapleader="\<Space>"
 
 call plug#begin()
 
-Plug 'neoclide/coc.nvim' " auto-completion
 Plug 'preservim/nerdtree' " Nerdtree
 Plug 'vim-airline/vim-airline' " vim-airline
+Plug 'LunarWatcher/auto-pairs' " auto-close braces (this is a maintained fork)
 Plug 'tpope/vim-commentary' " Comment lines
 Plug 'tpope/vim-surround' " surrounding
-Plug 'preservim/tagbar' " tagbar
-Plug 'voldikss/vim-floaterm' " terminal
-Plug 'arcticicestudio/nord-vim' " nord colorscheme
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " treesitter
 Plug 'Vimjas/vim-python-pep8-indent' " python indentation
+" Plug 'voldikss/vim-floaterm' " terminal
+" Plug 'preservim/tagbar' " tagbar
+" Plug 'lifepillar/pgsql.vim' " sql syntax highlight
+
+" live_grep & buffers
+Plug 'BurntSushi/ripgrep'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
 
 call plug#end()
 
+func! HighlightSQLInPython()
+	hi link sqlKeyword String
+	" Link Python string highlighting to SQL keywords
+	syn match sqlKeyword "\v(SELECT|FROM|WHERE|INSERT|INTO|UPDATE|DELETE|AND|OR|NOT|LIKE|IN|COUNT|AVG|MAX|MIN|INT|VARCHAR|CHAR|TEXT)" containedin=pythonString
+	" Ensure that Python strings are highlighted correctly
+	hi link sqlKeyword Keyword
+endfunc
+
+" Automatically call this function for Python files
+autocmd FileType python call HighlightSQLInPython()
+
 " shortcuts
-nnoremap <C-f> :NERDTreeFocus<CR>
-nnoremap <C-n> :NERDTree<CR>
-nnoremap <C-t> :NERDTreeToggle<CR>
+" nnoremap <C-f> :NERDTreeFocus<CR>
+" nnoremap <C-n> :NERDTree<CR>
+" nnoremap <C-t> :NERDTreeToggle<CR>
+noremap <C-c> "+y<CR>
+tnoremap <C-t> <C-\><C-n>
+
+nnoremap <C-n> :NERDTreeToggle<CR>
 nmap <F9> :TagbarToggle<CR>
+
+" open terminal
+nnoremap <Leader>t :split<CR>:terminal<CR>
 
 " save session, write changes and exit
 func SaveSession(path)
 	NERDTreeClose
-	FloatermKill
+	" FloatermKill
 	execute "mksession! ~/.config/nvim/sessions/" .. a:path
 	xa
 endfunc
 
 command! -nargs=1 Xs call SaveSession(<f-args>)
+
 
 " save/ load/ remove/ list sessions
 nnoremap <Leader>ss :Xs 
@@ -45,38 +69,25 @@ nnoremap <Leader>rs :!rm ~/.config/nvim/sessions/
 nnoremap <Leader>ls :!ls ~/.config/nvim/sessions/ <CR>
 
 " ranger through floaterm
-func OpenRanger()
-	:FloatermNew --height=0.6 --width=0.4 --wintype=float --name=filemanager
-				\ --position=topleft --autoclose=2 ranger --cmd="cd ~"
-endfunc
-command! Ranger call OpenRanger()
+" func OpenRanger()
+" 	:FloatermNew --height=0.6 --width=0.4 --wintype=float --name=filemanager
+" 				\ --position=topleft --autoclose=2 ranger --cmd="cd ~"
+" endfunc
+" command! Ranger call OpenRanger()
+"
+"
+" let g:floaterm_keymap_toggle = '<Leader>t'
+" let g:floaterm_wintype = 'split'
+" let g:floaterm_height = 0.4		
 
-let g:floaterm_keymap_toggle = '<Leader>t'
 let NERDTreeShowHidden = 1
 
 " colorscheme
-colorscheme nord
-
-" better syntax highlight
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-	ensure_installed = {"python", "html"}, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-	ignore_install = {}, -- List of parsers to ignore installing
-	highlight = {
-		enable = true,              -- false will disable the whole extension
-		disable = {},  -- list of language that will be disabled
-		-- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-		-- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-	    -- Using this option may slow down your editor, and you may see some duplicate highlights.
-		-- Instead of true it can also be a list of languages
-		additional_vim_regex_highlighting = false,
-  },
-}
-EOF
+set background=dark
 
 " change color when line reaches max chars (81)
-highlight OverLength ctermbg=red ctermfg=white guibg=#000000
-match OverLength /\%81v.\+/
+highlight OverLength ctermbg=gray ctermfg=black guibg=#cf7586
+match OverLength /\%100v.\+/
 
 " baaammm
 no <Up> <Nop>
@@ -87,3 +98,11 @@ ino <Up> <Nop>
 ino <Down> <Nop>
 ino <Left> <Nop>
 ino <Right> <Nop>
+
+" Telescope shortcuts
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+
+set list lcs=tab:\|\ 
+highlight NonText ctermfg=gray
